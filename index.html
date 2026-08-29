@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arranca Papeles — Cuadros collage hechos a mano</title>
+  <meta name="description" content="Cuadros únicos hechos con collage de papel rasgado. Piezas originales y encargos personalizados. Hecho a mano en Argentina." />
+
+  <link rel="icon" href="/assets/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Arranca Papeles — Cuadros collage hechos a mano" />
+  <meta property="og:description" content="Cuadros únicos hechos con collage de papel rasgado. Originales y por encargo." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/img/cuadros/obra-la-ofrenda.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <!-- Grano de papel global -->
+  <svg class="grain" aria-hidden="true" width="0" height="0">
+    <filter id="paperGrain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
+      <feColorMatrix type="saturate" values="0" />
+    </filter>
+  </svg>
+
+  <header class="site-header">
+    <a href="#top" class="brand">
+      <span class="brand-mark">✂</span>
+      <span class="brand-name">Arranca&nbsp;Papeles</span>
+    </a>
+    <nav aria-label="Navegación principal">
+      <a href="#galeria">Galería</a>
+      <a href="#tecnica">La técnica</a>
+      <a href="#encargos">Encargos</a>
+      <a href="#contacto" class="nav-cta">Pedir el mío</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- ░░░ HERO ░░░ -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow reveal">Collage hecho a mano · Argentina</p>
+        <h1 id="hero-title" class="reveal">
+          Se rompe.<br />
+          Se acomoda.<br />
+          <span class="ink">Se vuelve arte.</span>
+        </h1>
+        <p class="hero-sub reveal">
+          Cuadros únicos armados papel por papel. Nada de impresiones en serie:
+          cada pieza se arranca, se compone y se pega a mano.
+        </p>
+        <div class="hero-actions reveal">
+          <a href="#galeria" class="btn btn-primary">Ver la galería</a>
+          <a href="#encargos" class="btn btn-ghost">Quiero uno a medida</a>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="frame frame--hero tilt-a">
+          <img src="assets/img/cuadros/obra-la-ofrenda.jpg" alt="" />
+          <span class="tape tape--tl"></span>
+        </div>
+        <div class="paper-scrap scrap--1"></div>
+        <div class="paper-scrap scrap--2"></div>
+        <div class="paper-scrap scrap--3"></div>
+      </div>
+    </section>
+
+    <!-- ░░░ MARQUEE ░░░ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Originales</span><span>✦</span><span>Encargos personalizados</span><span>✦</span>
+        <span>Papel rasgado</span><span>✦</span><span>Piezas únicas</span><span>✦</span>
+        <span>Originales</span><span>✦</span><span>Encargos personalizados</span><span>✦</span>
+        <span>Papel rasgado</span><span>✦</span><span>Piezas únicas</span><span>✦</span>
+      </div>
+    </div>
+
+    <!-- ░░░ TÉCNICA / MANIFIESTO ░░░ -->
+    <section id="tecnica" class="technique" aria-labelledby="tecnica-title">
+      <div class="technique-text">
+        <p class="eyebrow reveal">La técnica</p>
+        <h2 id="tecnica-title" class="reveal">No se imprime.<br />Se construye.</h2>
+        <p class="reveal">
+          Cada cuadro nace de papeles que se eligen, se rasgan con la mano y se
+          superponen hasta encontrar la imagen. Revistas viejas, partituras,
+          papeles de color, texturas que ya tenían una vida antes de ser cuadro.
+        </p>
+        <p class="reveal">
+          Para mí el collage analógico es una forma de
+          <strong>expresión, rebeldía y meditación activa</strong>. El resultado
+          es una pieza que no se puede repetir: ni yo podría hacer dos iguales.
+        </p>
+        <p class="signature reveal">— Andrea Passarelli</p>
+      </div>
+      <ul class="technique-steps" aria-label="Proceso">
+        <li class="reveal"><span class="step-num">01</span><h3>Se elige</h3><p>Papeles, colores y texturas que cuentan algo.</p></li>
+        <li class="reveal"><span class="step-num">02</span><h3>Se arranca</h3><p>Cada borde se rasga a mano. Nada de tijera perfecta.</p></li>
+        <li class="reveal"><span class="step-num">03</span><h3>Se compone</h3><p>Capa sobre capa hasta que la imagen aparece.</p></li>
+        <li class="reveal"><span class="step-num">04</span><h3>Se enmarca</h3><p>Listo para colgar y durar.</p></li>
+      </ul>
+    </section>
+
+    <!-- ░░░ GALERÍA ░░░ -->
+    <section id="galeria" class="gallery" aria-labelledby="galeria-title">
+      <div class="section-head">
+        <p class="eyebrow reveal">La galería</p>
+        <h2 id="galeria-title" class="reveal">Piezas que ya tienen alma</h2>
+        <p class="section-lead reveal">Tocá cualquiera para verla en grande.</p>
+      </div>
+      <div class="gallery-grid" id="galleryGrid">
+        <!-- Inyectado por gallery.js desde cuadros.js -->
+      </div>
+    </section>
+
+    <!-- ░░░ ENCARGOS ░░░ -->
+    <section id="encargos" class="commission" aria-labelledby="encargos-title">
+      <div class="commission-card reveal">
+        <p class="eyebrow">Encargos a medida</p>
+        <h2 id="encargos-title">¿Tenés una idea?<br />La arrancamos juntos.</h2>
+        <p>
+          Un retrato, un lugar, una banda, una mascota, una fecha. Contanos qué
+          querés y armamos un collage único para vos o para regalar.
+        </p>
+        <ul class="commission-list">
+          <li>Diseño 100% personalizado</li>
+          <li>Distintos tamaños y marcos</li>
+          <li>Envíos a todo el país</li>
+        </ul>
+        <a href="#contacto" class="btn btn-primary">Empezar mi encargo</a>
+      </div>
+    </section>
+
+    <!-- ░░░ CONTACTO ░░░ -->
+    <section id="contacto" class="contact" aria-labelledby="contacto-title">
+      <p class="eyebrow reveal">Hablemos</p>
+      <h2 id="contacto-title" class="reveal">Escribinos y llevátelo</h2>
+      <p class="reveal contact-lead">
+        Respondemos los mensajes por Instagram y WhatsApp. Contanos qué pieza te
+        gustó o qué idea tenés en mente.
+      </p>
+      <div class="contact-actions reveal">
+        <a class="btn btn-primary" href="https://www.instagram.com/arrancapapeles/" target="_blank" rel="noopener">
+          Instagram @arrancapapeles
+        </a>
+        <a class="btn btn-ghost" href="https://wa.me/5491134141976?text=%C2%A1Hola%20Arranca%20Papeles!%20Vi%20la%20galer%C3%ADa%20y%20quiero%20consultar%20por%20una%20obra%20%E2%9C%82%EF%B8%8F" target="_blank" rel="noopener">
+          WhatsApp
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span class="brand-name">Arranca Papeles</span>
+    <p>Collage analógico hecho a mano · por Andrea Passarelli (@andiepass) · Argentina</p>
+    <p class="muted">© <span id="year"></span> Arranca Papeles. Cada pieza es única.</p>
+    <p class="muted">Diseñado por <a href="https://eltanodesign.com.ar" target="_blank" rel="noopener noreferrer">El Tano Design</a></p>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Cuadro ampliado" hidden>
+    <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">✕</button>
+    <figure class="lightbox-figure">
+      <img id="lightboxImg" src="" alt="" />
+      <figcaption id="lightboxCaption"></figcaption>
+    </figure>
+  </div>
+
+  <script src="assets/js/cuadros.js"></script>
+  <script src="assets/js/gallery.js"></script>
+</body>
+</html>
