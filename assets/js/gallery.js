@@ -72,13 +72,36 @@
       .map(function (y) { return { year: y, items: byYear[y] }; });
   }
 
+  function buildYearJump(groups) {
+    var nav = document.createElement("nav");
+    nav.className = "year-jump";
+    nav.setAttribute("aria-label", "Saltar a un año");
+    groups.forEach(function (group, i) {
+      if (i > 0) {
+        var sep = document.createElement("span");
+        sep.className = "year-jump-sep";
+        sep.setAttribute("aria-hidden", "true");
+        sep.textContent = "/";
+        nav.appendChild(sep);
+      }
+      var a = document.createElement("a");
+      a.href = "#anio-" + group.year;
+      a.textContent = group.year;
+      nav.appendChild(a);
+    });
+    return nav;
+  }
+
   function renderGallery() {
     var container = document.getElementById("galleryGrid");
     if (!container || !window.CUADROS) return;
+    var groups = groupByYear(window.CUADROS);
     var frag = document.createDocumentFragment();
-    groupByYear(window.CUADROS).forEach(function (group) {
+    if (groups.length > 1) frag.appendChild(buildYearJump(groups));
+    groups.forEach(function (group) {
       var block = document.createElement("div");
       block.className = "year-block";
+      block.id = "anio-" + group.year;
 
       var title = document.createElement("h3");
       title.className = "year-title";
