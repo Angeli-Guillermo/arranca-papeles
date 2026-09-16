@@ -60,14 +60,44 @@
     return article;
   }
 
-  function renderGallery() {
-    var grid = document.getElementById("galleryGrid");
-    if (!grid || !window.CUADROS) return;
-    var frag = document.createDocumentFragment();
-    window.CUADROS.forEach(function (c, i) {
-      frag.appendChild(buildCard(c, i));
+  function groupByYear(cuadros) {
+    var byYear = {};
+    cuadros.forEach(function (c) {
+      var y = c.year || "Sin fecha";
+      if (!byYear[y]) byYear[y] = [];
+      byYear[y].push(c);
     });
-    grid.appendChild(frag);
+    return Object.keys(byYear)
+      .sort(function (a, b) { return b.localeCompare(a); })
+      .map(function (y) { return { year: y, items: byYear[y] }; });
+  }
+
+  function renderGallery() {
+    var container = document.getElementById("galleryGrid");
+    if (!container || !window.CUADROS) return;
+    var frag = document.createDocumentFragment();
+    groupByYear(window.CUADROS).forEach(function (group) {
+      var block = document.createElement("div");
+      block.className = "year-block";
+
+      var title = document.createElement("h3");
+      title.className = "year-title";
+      title.innerHTML =
+        group.year +
+        ' <span class="year-count">(' + group.items.length + " pieza" +
+        (group.items.length === 1 ? "" : "s") + ")</span>";
+      block.appendChild(title);
+
+      var grid = document.createElement("div");
+      grid.className = "gallery-grid";
+      group.items.forEach(function (c, i) {
+        grid.appendChild(buildCard(c, i));
+      });
+      block.appendChild(grid);
+
+      frag.appendChild(block);
+    });
+    container.appendChild(frag);
   }
 
   /* ── Lightbox ── */

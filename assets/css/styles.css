@@ -327,6 +327,23 @@ a { color: inherit; }
 .section-head h2 { font-size: clamp(2rem, 1.2rem + 4vw, 3.6rem); }
 .section-lead { color: var(--ink-soft); margin: 0.8rem 0 0; }
 
+.year-block { margin-bottom: clamp(3rem, 6vw, 5rem); }
+.year-block:last-child { margin-bottom: 0; }
+.year-title {
+  font-size: clamp(1.5rem, 1rem + 2vw, 2.4rem);
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--paper-deep);
+}
+.year-title .year-count {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--ink-soft);
+}
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
