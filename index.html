@@ -40,6 +40,7 @@
     <nav aria-label="Navegación principal">
       <a href="#galeria">Galería</a>
       <a href="#tecnica">La técnica</a>
+      <a href="#artista">La artista</a>
       <a href="#encargos">Encargos</a>
       <a href="#contacto" class="nav-cta">Pedir el mío</a>
     </nav>
@@ -111,6 +112,29 @@
       </ul>
     </section>
 
+    <!-- ░░░ LA ARTISTA ░░░ -->
+    <section id="artista" class="artist" aria-labelledby="artista-title">
+      <div class="artist-photo">
+        <div class="frame tilt-a">
+          <img src="assets/img/andrea-passarelli.jpg" alt="Andrea Passarelli, la artista detrás de Arranca Papeles" />
+        </div>
+      </div>
+      <div class="artist-text">
+        <p class="eyebrow reveal">Quién hace esto</p>
+        <h2 id="artista-title" class="reveal">Andrea Passarelli</h2>
+        <p class="reveal">
+          <!-- BORRADOR: reemplazar por la bio que escriba Andrea -->
+          Soy la persona detrás de cada collage de Arranca Papeles. Arranco,
+          elijo y compongo cada papel a mano, en Buenos Aires. Parte de mi
+          trabajo está ahora mismo en exhibición colectiva en Spark y en
+          Taplan Galería.
+        </p>
+        <a class="btn btn-ghost reveal" href="https://www.instagram.com/andiepass/" target="_blank" rel="noopener">
+          Instagram personal @andiepass
+        </a>
+      </div>
+    </section>
+
     <!-- ░░░ GALERÍA ░░░ -->
     <section id="galeria" class="gallery" aria-labelledby="galeria-title">
       <div class="section-head">
@@ -180,8 +204,50 @@
     </figure>
   </div>
 
+  <!-- Checkout -->
+  <div class="checkout-modal" id="checkoutModal" role="dialog" aria-modal="true" aria-label="Comprar obra" hidden>
+    <div class="checkout-panel">
+      <button class="lightbox-close" id="checkoutClose" aria-label="Cerrar">✕</button>
+      <div class="checkout-obra">
+        <img id="checkoutImg" src="" alt="" />
+        <div>
+          <h3 id="checkoutTitle"></h3>
+          <p id="checkoutPrice" class="cuadro-price"></p>
+        </div>
+      </div>
+      <form id="checkoutForm" class="checkout-form">
+        <label>
+          Envío
+          <select id="checkoutZone"></select>
+        </label>
+        <p class="checkout-zone-note" id="checkoutZoneNote"></p>
+        <label>
+          Nombre y apellido
+          <input type="text" id="checkoutName" required />
+        </label>
+        <label>
+          Email
+          <input type="email" id="checkoutEmail" required />
+        </label>
+        <label>
+          WhatsApp (opcional)
+          <input type="tel" id="checkoutPhone" />
+        </label>
+        <label>
+          Notas (opcional)
+          <textarea id="checkoutNotes" rows="2"></textarea>
+        </label>
+        <p class="checkout-total">Total: <strong id="checkoutTotal"></strong></p>
+        <button type="submit" class="btn btn-primary" id="checkoutSubmit">Confirmar pedido</button>
+      </form>
+      <p class="checkout-status" id="checkoutStatus" hidden></p>
+    </div>
+  </div>
+
   <script src="assets/js/cuadros.js"></script>
+  <script src="assets/js/shipping.js"></script>
   <script src="assets/js/gallery.js"></script>
+  <script src="assets/js/checkout.js"></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

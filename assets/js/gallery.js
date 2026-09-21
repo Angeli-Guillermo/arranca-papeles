@@ -55,6 +55,18 @@
       '<p class="cuadro-size">' + (cuadro.size || "") + "</p>" +
       '<p class="cuadro-price">' + formatPrice(cuadro) + "</p>";
 
+    if (!sold) {
+      var buyBtn = document.createElement("button");
+      buyBtn.type = "button";
+      buyBtn.className = "btn-buy";
+      buyBtn.textContent = "Comprar";
+      buyBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        if (window.ArrancaCheckout) window.ArrancaCheckout.open(cuadro);
+      });
+      meta.appendChild(buyBtn);
+    }
+
     article.appendChild(btn);
     article.appendChild(meta);
     return article;

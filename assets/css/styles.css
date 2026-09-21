@@ -276,7 +276,7 @@ a { color: inherit; }
   gap: clamp(2rem, 5vw, 5rem);
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: var(--space-section) clamp(1.2rem, 4vw, 3rem);
+  padding: calc(var(--space-section) / 2) clamp(1.2rem, 4vw, 3rem);
   align-items: center;
 }
 .technique-text h2 {
@@ -316,12 +316,30 @@ a { color: inherit; }
 .technique-steps p { grid-column: 2; margin: 0; font-size: 0.92rem; color: var(--ink-soft); }
 
 /* ============================================================
+   LA ARTISTA
+   ============================================================ */
+.artist {
+  display: grid;
+  grid-template-columns: minmax(220px, 320px) 1fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: calc(var(--space-section) / 2) clamp(1.2rem, 4vw, 3rem);
+  align-items: center;
+}
+.artist-photo .frame { max-width: 300px; margin: 0 auto; }
+.artist-photo .frame img { aspect-ratio: 800 / 1288; object-fit: cover; }
+.artist-text p { color: var(--ink-soft); max-width: 46ch; }
+.artist-text h2 { font-size: clamp(1.8rem, 1.2rem + 3vw, 2.8rem); margin: 0.4rem 0 1rem; }
+.artist-text .btn { margin-top: 0.6rem; }
+
+/* ============================================================
    GALERÍA
    ============================================================ */
 .gallery {
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: var(--space-section) clamp(1.2rem, 4vw, 3rem);
+  padding: calc(var(--space-section) / 2) clamp(1.2rem, 4vw, 3rem);
 }
 .section-head { text-align: center; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
 .section-head h2 { font-size: clamp(2rem, 1.2rem + 4vw, 3.6rem); }
@@ -435,7 +453,7 @@ a { color: inherit; }
    ENCARGOS
    ============================================================ */
 .commission {
-  padding: var(--space-section) clamp(1.2rem, 4vw, 3rem);
+  padding: calc(var(--space-section) / 2) clamp(1.2rem, 4vw, 3rem);
 }
 .commission-card {
   max-width: 720px;
@@ -481,7 +499,7 @@ a { color: inherit; }
   max-width: 720px;
   margin: 0 auto;
   text-align: center;
-  padding: var(--space-section) clamp(1.2rem, 4vw, 3rem);
+  padding: calc(var(--space-section) / 2) clamp(1.2rem, 4vw, 3rem);
 }
 .contact h2 { font-size: clamp(2rem, 1.2rem + 4vw, 3.4rem); margin-bottom: 1rem; }
 .contact-lead { color: var(--ink-soft); margin: 0 auto 2rem; max-width: 44ch; }
@@ -543,6 +561,107 @@ a { color: inherit; }
 .lightbox-close:hover { background: var(--paper); color: var(--ink); }
 
 /* ============================================================
+   BOTÓN COMPRAR
+   ============================================================ */
+.btn-buy {
+  display: inline-block;
+  margin-top: 0.6rem;
+  padding: 0.5rem 1.1rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.85rem;
+  border: 2px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+.btn-buy:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  transform: translate(-1px, -1px);
+}
+
+/* ============================================================
+   CHECKOUT
+   ============================================================ */
+.checkout-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(31, 27, 22, 0.92);
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+}
+.checkout-modal[hidden] { display: none; }
+.checkout-panel {
+  position: relative;
+  width: min(460px, 92vw);
+  max-height: 88vh;
+  overflow-y: auto;
+  background: var(--paper);
+  padding: 1.6rem;
+  box-shadow: var(--shadow-frame);
+}
+.checkout-obra {
+  display: flex;
+  gap: 0.9rem;
+  align-items: center;
+  margin-bottom: 1.2rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid var(--paper-deep);
+}
+.checkout-obra img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  box-shadow: var(--shadow-soft);
+}
+.checkout-obra h3 { margin: 0 0 0.2rem; font-size: 1.1rem; }
+.checkout-form { display: flex; flex-direction: column; gap: 0.9rem; }
+.checkout-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+.checkout-form input,
+.checkout-form select,
+.checkout-form textarea {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  padding: 0.6rem 0.7rem;
+  border: 2px solid var(--paper-deep);
+  background: #fff;
+  color: var(--ink);
+}
+.checkout-form input:focus,
+.checkout-form select:focus,
+.checkout-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.checkout-zone-note {
+  margin: -0.5rem 0 0;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+.checkout-total {
+  margin: 0;
+  font-size: 1rem;
+}
+.checkout-form button[type="submit"] { width: 100%; text-align: center; }
+.checkout-status {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
+/* ============================================================
    REVEAL
    ============================================================ */
 .reveal {
@@ -559,6 +678,8 @@ a { color: inherit; }
   .hero { grid-template-columns: 1fr; }
   .hero-visual { max-width: 420px; margin: 1rem auto 0; width: 100%; }
   .technique { grid-template-columns: 1fr; }
+  .artist { grid-template-columns: 1fr; text-align: center; }
+  .artist-text p { margin-left: auto; margin-right: auto; }
   .site-header nav a:not(.nav-cta):not([href="#contacto"]) { display: none; }
 }
 @media (max-width: 520px) {
