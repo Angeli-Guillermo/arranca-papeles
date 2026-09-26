@@ -41,16 +41,27 @@ module.exports = async (req, res) => {
       ? "A coordinar (envío internacional)"
       : "$" + shippingCost.toLocaleString("es-AR");
 
+  // El body es JSON crudo enviado por el cliente (o por cualquiera que le
+  // pegue al endpoint), así que todo campo se escapa antes de ir a HTML.
+  function escapeHtml(value) {
+    return String(value == null ? "" : value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
   var html =
     "<h2>Nuevo pedido — Arranca Papeles</h2>" +
-    "<p><strong>Obra:</strong> " + obraTitle + " (US$ " + obraPrice + ")</p>" +
-    "<p><strong>Envío:</strong> " + zoneLabel + " — " + shippingText + "</p>" +
-    "<p><strong>Total:</strong> " + total + "</p>" +
+    "<p><strong>Obra:</strong> " + escapeHtml(obraTitle) + " (US$ " + escapeHtml(obraPrice) + ")</p>" +
+    "<p><strong>Envío:</strong> " + escapeHtml(zoneLabel) + " — " + shippingText + "</p>" +
+    "<p><strong>Total:</strong> " + escapeHtml(total) + "</p>" +
     "<hr/>" +
-    "<p><strong>Comprador/a:</strong> " + buyerName + "</p>" +
-    "<p><strong>Email:</strong> " + buyerEmail + "</p>" +
-    "<p><strong>WhatsApp:</strong> " + (buyerPhone || "-") + "</p>" +
-    "<p><strong>Notas:</strong> " + (notes || "-") + "</p>";
+    "<p><strong>Comprador/a:</strong> " + escapeHtml(buyerName) + "</p>" +
+    "<p><strong>Email:</strong> " + escapeHtml(buyerEmail) + "</p>" +
+    "<p><strong>WhatsApp:</strong> " + escapeHtml(buyerPhone || "-") + "</p>" +
+    "<p><strong>Notas:</strong> " + escapeHtml(notes || "-") + "</p>";
 
   try {
     var r = await fetch("https://api.resend.com/emails", {
