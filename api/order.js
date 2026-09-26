@@ -36,10 +36,6 @@ module.exports = async (req, res) => {
     return;
   }
 
-  var shippingText =
-    shippingCost == null
-      ? "A coordinar (envío internacional)"
-      : "$" + shippingCost.toLocaleString("es-AR");
 
   // El body es JSON crudo enviado por el cliente (o por cualquiera que le
   // pegue al endpoint), así que todo campo se escapa antes de ir a HTML.
@@ -52,10 +48,19 @@ module.exports = async (req, res) => {
       .replace(/'/g, "&#39;");
   }
 
+  // shippingCost también viene del cliente: se formatea solo si es un número
+  // y el resultado pasa por escapeHtml igual que el resto.
+  var shippingText =
+    shippingCost == null
+      ? "A coordinar (envío internacional)"
+      : typeof shippingCost === "number"
+        ? "$" + shippingCost.toLocaleString("es-AR")
+        : String(shippingCost);
+
   var html =
     "<h2>Nuevo pedido — Arranca Papeles</h2>" +
     "<p><strong>Obra:</strong> " + escapeHtml(obraTitle) + " (US$ " + escapeHtml(obraPrice) + ")</p>" +
-    "<p><strong>Envío:</strong> " + escapeHtml(zoneLabel) + " — " + shippingText + "</p>" +
+    "<p><strong>Envío:</strong> " + escapeHtml(zoneLabel) + " — " + escapeHtml(shippingText) + "</p>" +
     "<p><strong>Total:</strong> " + escapeHtml(total) + "</p>" +
     "<hr/>" +
     "<p><strong>Comprador/a:</strong> " + escapeHtml(buyerName) + "</p>" +
@@ -80,13 +85,17 @@ module.exports = async (req, res) => {
     });
 
     if (!r.ok) {
-      var errText = await r.text();
-      res.status(502).json({ error: "No se pudo enviar la notificación", detail: errText });
+      // El detalle de Resend va al log de Vercel, no al navegador del
+      // comprador (puede incluir info de la cuenta/dominio de Resend).
+      var errText = await r.text().catch(function () { return ""; });
+      console.error("[api/order] Resend devolvió error:", r.status, errText);
+      res.status(502).json({ error: "No se pudo enviar la notificación" });
       return;
     }
 
     res.status(200).json({ ok: true });
   } catch (err) {
+    console.error("[api/order] Error enviando el aviso de pedido:", err);
     res.status(500).json({ error: "Error interno" });
   }
 };

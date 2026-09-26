@@ -1,1 +1,8 @@
 .vercel
+
+# Cookie de sesión de Instagram que leen scripts/ig_download.py e
+# ig_api_download.py: da acceso completo a la cuenta. El repo es público,
+# así que un `git add .` la publicaba.
+scripts/.ig_session
+.ig_session
+.env*
