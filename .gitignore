@@ -1,1 +1,9 @@
 .vercel
+
+# Auditoria extrema 02-oct-2026 (Codex): .gitignore no cubria archivos de
+# secretos -- .ig_session nunca llego a commitearse de pura suerte (nadie lo
+# creo todavia sin este patron), no por una red de seguridad real.
+.ig_session
+.ig_config.json
+*.env
+.env.local

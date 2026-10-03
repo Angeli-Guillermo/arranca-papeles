@@ -14,11 +14,21 @@ HERE = pathlib.Path(__file__).resolve().parent
 OUT = HERE / "_ig_raw" / "arrancapapeles"
 OUT.mkdir(parents=True, exist_ok=True)
 
+# Auditoria extrema 02-oct-2026 (Codex): estas 4 constantes vivian
+# hardcodeadas en texto plano en un script trackeado en un repo PUBLICO. El
+# sessionid ya se leia bien desde un archivo externo (.ig_session, nunca
+# commiteado) -- estas 4 ahora siguen el mismo patron, en vez de quedar en
+# claro en el historial de git. Exponen el user ID interno de la cuenta de
+# Instagram (PII menor) y, combinadas con un sessionid filtrado por otro
+# lado, facilitarian reconstruir una sesion "de confianza" (mismo device
+# fingerprint). Crear scripts/.ig_config.json (gitignoreado, ver .gitignore)
+# con: {"csrf": "...", "ds_user": "...", "mid": "...", "ig_did": "..."}.
+_CONFIG = json.loads((HERE / ".ig_config.json").read_text(encoding="utf-8"))
 SESSIONID = (HERE / ".ig_session").read_text(encoding="utf-8").strip()
-CSRF = "3NPDyCHCwFjughRpxPFVywjj6R2EKFE2"
-DS_USER = "40712969"
-MID = "ajB0zgALAAFvUAZN7ZYdg9QyUSpm"
-IG_DID = "63CED7E8-ACB1-43EA-931D-4C00EA1C51DA"
+CSRF = _CONFIG["csrf"]
+DS_USER = _CONFIG["ds_user"]
+MID = _CONFIG["mid"]
+IG_DID = _CONFIG["ig_did"]
 TARGET = "arrancapapeles"
 APP_ID = "936619743392459"
 
@@ -29,10 +39,16 @@ COOKIE = (
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/120.0 Safari/537.36")
 
-# Avast intercepta TLS -> no verificar (red local del usuario)
+# Auditoria extrema 02-oct-2026 (Codex): el comentario original decia "Avast
+# intercepta TLS -> no verificar", pero esto desactivaba la verificacion de
+# certificado para TODA conexion del proceso -- no solo evita que Avast
+# moleste, habilita un MITM real (cualquiera con posicion de red podria
+# interceptar y robar la cookie de sesion, que viaja en cada request de
+# api_get()). El fix correcto si Avast realmente intercepta HTTPS es confiar
+# en su certificado raiz desde Python (agregarlo al bundle de certifi, o
+# desactivar el escaneo HTTPS de Avast para este script puntual), no
+# desactivar la verificacion global. Verificacion por defecto restaurada.
 CTX = ssl.create_default_context()
-CTX.check_hostname = False
-CTX.verify_mode = ssl.CERT_NONE
 
 
 def api_get(url: str, retries: int = 6) -> dict:
