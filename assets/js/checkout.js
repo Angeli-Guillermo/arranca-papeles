@@ -17,6 +17,12 @@
   var statusEl = document.getElementById("checkoutStatus");
   var current = null;
   var lastFocused = null;
+  // Auditoría extrema (03-oct-2026, Codex): se puede mandar el pedido A,
+  // cerrar el modal y abrir el B mientras A sigue pendiente -- sin esto, la
+  // respuesta de A llegaba tarde y pisaba el modal de B (lo cerraba y
+  // mostraba "¡Pedido recibido!" aunque B nunca se haya enviado). Cada
+  // apertura del modal invalida cualquier submit anterior todavía en vuelo.
+  var openToken = 0;
 
   function zones() {
     return (window.SHIPPING && window.SHIPPING.zones) || [];
@@ -66,6 +72,7 @@
   }
 
   function openCheckout(cuadro) {
+    openToken++;
     current = cuadro;
     lastFocused = document.activeElement;
     imgEl.src = cuadro.img;
@@ -118,6 +125,8 @@
     submitBtn.disabled = true;
     submitBtn.textContent = "Enviando...";
 
+    var myToken = openToken;
+
     fetch("/api/order", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -129,6 +138,7 @@
         });
       })
       .then(function (result) {
+        if (myToken !== openToken) return; // se abrió otro pedido mientras este estaba en vuelo
         if (!result.ok) throw new Error((result.data && result.data.error) || "Error");
         form.hidden = true;
         statusEl.hidden = false;
@@ -137,6 +147,7 @@
           (zone.price == null ? " y el costo de envío internacional." : " y confirmar el envío.");
       })
       .catch(function () {
+        if (myToken !== openToken) return; // se abrió otro pedido mientras este estaba en vuelo
         statusEl.hidden = false;
         statusEl.textContent =
           "No pudimos enviar el pedido. Escribinos directo por WhatsApp o Instagram, por favor.";
