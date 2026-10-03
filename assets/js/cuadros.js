@@ -9,7 +9,7 @@
  * priceLabel: opcional ("Vendido", "Desde", etc.)
  * tag:   etiqueta corta para el badge (opcional)
  */
-window.CUADROS = [
+var CUADROS = [
   {
     img: "assets/img/cuadros/obra-rompiendo-modelos.jpg",
     title: "Rompiendo modelos",
@@ -533,3 +533,12 @@ window.CUADROS = [
     year: "2026",
   },
 ];
+
+// Auditoría extrema (03-oct-2026, Codex): api/order.js necesita el catálogo
+// real para validar obraTitle/obraPrice en vez de confiar en lo que mande el
+// cliente. `window` no existe en el runtime Node de la función serverless
+// (ni `module` existe en el navegador), así que cada asignación se guarda
+// detrás del chequeo del entorno que SÍ aplica -- no cambia nada para el
+// navegador ni para Node.
+if (typeof window !== "undefined") window.CUADROS = CUADROS;
+if (typeof module !== "undefined" && module.exports) module.exports = CUADROS;
