@@ -27,6 +27,20 @@ module.exports = async (req, res) => {
     return;
   }
 
+  // Auditoría extrema (03-oct-2026, Codex): shippingCost no tenía chequeo de
+  // tipo. Si llegaba como string, `.toLocaleString()` existe igual (heredado
+  // de Object.prototype) y devuelve el string tal cual -- shippingText
+  // terminaba siendo exactamente ese valor, insertado en el HTML del email
+  // SIN pasar por escapeHtml() (a diferencia de todos los demás campos),
+  // habilitando inyección de enlaces/instrucciones falsas en el email que
+  // recibe la artista. Si en cambio llegaba un objeto sin toLocaleString
+  // utilizable, tiraba un TypeError fuera del try/catch de más abajo,
+  // devolviendo un 500 crudo en vez de un 400 controlado.
+  if (shippingCost != null && typeof shippingCost !== "number") {
+    res.status(400).json({ error: "shippingCost inválido" });
+    return;
+  }
+
   var artistEmail = process.env.ARTIST_EMAIL;
   var resendKey = process.env.RESEND_API_KEY;
   var fromAddress = process.env.ORDER_FROM_EMAIL || "pedidos@eltanodesign.com.ar";
@@ -55,7 +69,7 @@ module.exports = async (req, res) => {
   var html =
     "<h2>Nuevo pedido — Arranca Papeles</h2>" +
     "<p><strong>Obra:</strong> " + escapeHtml(obraTitle) + " (US$ " + escapeHtml(obraPrice) + ")</p>" +
-    "<p><strong>Envío:</strong> " + escapeHtml(zoneLabel) + " — " + shippingText + "</p>" +
+    "<p><strong>Envío:</strong> " + escapeHtml(zoneLabel) + " — " + escapeHtml(shippingText) + "</p>" +
     "<p><strong>Total:</strong> " + escapeHtml(total) + "</p>" +
     "<hr/>" +
     "<p><strong>Comprador/a:</strong> " + escapeHtml(buyerName) + "</p>" +
