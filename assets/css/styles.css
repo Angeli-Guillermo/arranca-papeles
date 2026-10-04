@@ -10,6 +10,7 @@
   --ink:          #1f1b16;   /* texto principal */
   --ink-soft:     #5a5248;
   --accent:       #d6492f;   /* tomate */
+  --accent-dark:  #af3c27;   /* tomate oscurecido para texto crema encima (4.5:1+, --accent solo daba 3.68:1) */
   --accent-2:     #e8a523;   /* ocre */
   --accent-3:     #2f6b6b;   /* teal apagado */
   --tape:         rgba(232, 213, 168, 0.75);
@@ -245,7 +246,7 @@ a { color: inherit; }
    ============================================================ */
 .marquee {
   border-block: 2px solid var(--ink);
-  background: var(--accent);
+  background: var(--accent-dark);
   color: var(--paper);
   overflow: hidden;
   padding: 0.7rem 0;
@@ -516,7 +517,7 @@ a { color: inherit; }
 }
 .site-footer .brand-name { font-family: var(--font-display); font-weight: 900; font-size: 1.6rem; }
 .site-footer p { margin: 0.4rem 0 0; color: var(--ink-soft); font-size: 0.9rem; }
-.site-footer .muted { font-size: 0.8rem; opacity: 0.7; margin-top: 1rem; }
+.site-footer .muted { font-size: 0.8rem; margin-top: 1rem; }
 
 /* ============================================================
    LIGHTBOX
@@ -670,6 +671,20 @@ a { color: inherit; }
   transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
 }
 .reveal.is-visible { opacity: 1; transform: none; }
+
+/* Entrada del H1 del hero: CSS puro (@keyframes), no depende de JS ni de
+   IntersectionObserver como .reveal — el título es el elemento LCP y
+   esperar al JS agregaba ~1.5s de "render delay" medidos con
+   chrome-devtools-mcp (29-sep-2026). Arranca a pintar apenas resuelve el
+   CSS, sin esperar bundle/observer. */
+.hero-title-in { animation: hero-title-in 0.7s var(--ease) both; }
+@keyframes hero-title-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-title-in { animation: none; opacity: 1; transform: none; }
+}
 
 /* ============================================================
    RESPONSIVE

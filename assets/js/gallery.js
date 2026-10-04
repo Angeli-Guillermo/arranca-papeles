@@ -22,7 +22,9 @@
     btn.type = "button";
     btn.setAttribute(
       "aria-label",
-      "Ampliar " + cuadro.title + (sold ? " (vendido)" : "")
+      "Ampliar " + cuadro.title +
+        (cuadro.tag ? " — " + cuadro.tag : "") +
+        (sold ? " (vendido)" : "")
     );
 
     var img = document.createElement("img");
